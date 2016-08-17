@@ -45,6 +45,9 @@ for tr in table:
     if i%10==2:
         if tr.string==None:
 	    break
+	elif tr.string=='1':
+	    print 'No Record!' 
+	    break#当前没有借书
         print 'title:%s'%(tr.string)
     elif i%10==6:
 	print 'Borrowing date:%s'%(tr.string)
