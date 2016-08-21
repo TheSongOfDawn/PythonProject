@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+__author__ = 'lk'
 import requests
 import re
 from  bs4 import BeautifulSoup
