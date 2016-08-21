@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 #重庆科技学院 做了登陆 这个版本还没有做成绩的排版
+__author__ = 'lk'
 import requests
 url='http://web.cqust.edu.cn:9080/userPasswordValidate.portal'
 s=requests.session()
