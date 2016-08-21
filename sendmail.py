@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 #确认邮箱开启了smtp，password是客户端授权密码
+__author__ = 'lk'
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
