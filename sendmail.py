@@ -9,7 +9,7 @@ def sendMail(fromEmail, username, password, serverAddress, subject, htmlContent,
     '''
     fromEmail: 使用哪个邮箱地址发送
     username: 登陆邮箱服务器的用户名，一般与fromEmail相同
-    password: 登陆的密码
+    password: 登陆的密码 邮箱客户端授权码
     serverAddress: 邮箱服务的地址（包含端口）
     subject: 邮件主题
     htmlContent: 邮件正文，使用html格式编写
