@@ -86,3 +86,4 @@ def foo(s):
 # n=int(s)
 # logging.info('n=%d'%n)
 # print(10/n)
+#跳过了后面的文档测试！
