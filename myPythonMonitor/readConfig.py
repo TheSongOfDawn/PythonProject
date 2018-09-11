@@ -1,8 +1,5 @@
 # -*- coding: UTF-8 -*-
-
 import ConfigParser
-
-
 
 def readConfig():
     cf=ConfigParser.ConfigParser() #实例化一个对象
