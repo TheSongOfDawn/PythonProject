@@ -68,6 +68,14 @@ class monitor(object):
             pass
 
 
+def monitorMain():
+    config_list=readConfig()
+    pid_list = findPidsToMonitor(config_list[0])
+    print(pid_list)
+    monitor_time =config_list[1]
+    perfm = monitor(pid_list, monitor_time,config_list[2])
+    perfm.monitorRunner()
+
 def findPidsToMonitor(processes):
     #获取当前操作系统
     sysstr = platform.system()
