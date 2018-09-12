@@ -132,3 +132,21 @@ if __name__=='__main__':
     monitor_time =config_list[1]
     perfm = monitor(pid_list, monitor_time,config_list[2])
     perfm.monitorRunner()
+
+'''
+参考
+gitHub:
+https://github.com/junneyang/perfmonitor
+psutil官方文档
+https://psutil.readthedocs.io/en/latest
+
+程序每次开始压缩前都会清除perflog目录
+
+关于IO这里只看读写(累计)字节 在第 2 3 位
+pio(read_count=, write_count=, read_bytes=, write_bytes=, read_chars=, write_chars=)
+
+cpu_percent 返回一个浮点数，表示进程CPU利用率百分比.
+注意 如果进程在不同的CPU内核上运行多个线程，则返回值可以> 100.0。
+
+运行完毕后会压缩文件到当前目录下 然后会剪切到/home/like/perfmonitor/tardir
+'''
