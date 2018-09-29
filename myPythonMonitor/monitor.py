@@ -2,11 +2,11 @@
 
 import os
 import sys
-import psutil
 import time
 import datetime
 import platform
 from readConfig import *
+from psutil import *
 
 
 class monitor(object):
@@ -32,7 +32,7 @@ class monitor(object):
             begintime = (int)(time.time())
             p_list = []
             for pid in self.pid_list:
-                p_list.append(psutil.Process(int(pid)))
+                p_list.append(Process(int(pid)))
             while(((int)(time.time()) - begintime) <= monitorsecond):
                 for p in p_list:
                     name = p.name()
@@ -69,11 +69,16 @@ class monitor(object):
 
 
 def monitorMain():
+    # ******** 读取配置文件********
     config_list=readConfig()
+    # ******** 获取要监视的文件的PID **********
     pid_list = findPidsToMonitor(config_list[0])
     print(pid_list)
+    #********** 监视时间************
     monitor_time =config_list[1]
+    #********* 生成监视器 ************
     perfm = monitor(pid_list, monitor_time,config_list[2])
+    # **************开始监视 *********
     perfm.monitorRunner()
 
 def findPidsToMonitor(processes):
@@ -123,13 +128,13 @@ def get_proc_by_name(pname):
     """ get process by name
     return the first process if there are more than one
     """
-    for proc in psutil.process_iter():
+    for proc in process_iter():
         try:
             if proc.name().lower() == pname.lower():
                 return proc.pid  # return if found one
-        except psutil.AccessDenied:
+        except AccessDenied:
             pass
-        except psutil.NoSuchProcess:
+        except NoSuchProcess:
             pass
     return None
 
