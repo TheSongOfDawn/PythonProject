@@ -5,3 +5,4 @@ if __name__ == '__main__':
     monitorMain() #统计
     #from drawLog import *
     #perfstatMain() #绘图
+    raw_input("press <ENTER>")
