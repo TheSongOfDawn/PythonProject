@@ -76,7 +76,7 @@ class monitor(object):
                     netusagestr_filepath = self.perflog + "net.log"
                     fp=open(netusagestr_filepath,"a")
                     for key in key_info:
-                        fp.write('%s\t\s\nInput:\t %-5sKB/s\nOutput:\t %-5sKB/s\n' % (current,key, net_in.get(key),\
+                        fp.write('%s\t%s\nInput:\t %-5sKB/s\nOutput:\t %-5sKB/s\n' % (current,key, net_in.get(key),\
                         net_out.get(key)))
                     fp.close()
         except Exception as e:
