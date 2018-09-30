@@ -59,16 +59,46 @@ class monitor(object):
                         fp=open(iousagestr_filepath,"a")
                         fp.write(iousagestr)
                         fp.close()
-                    if self.watchnet:
-                        pass
+                    
+                if self.watchnet:
+                    key_info, old_recv, old_sent = get_key()
                 time.sleep(1)
-
+                #  net
+                if self.watchnet:
+                    current = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    key_info, now_recv, now_sent = get_key()
+                    net_in = {}
+                    net_out = {}
+                    for key in key_info:
+                        net_in.setdefault(key, (now_recv.get(key) - old_recv.get(key)) / 1024)  # 每秒接收速率
+                        net_out.setdefault(key, (now_sent.get(key) - old_sent.get(key)) / 1024) # 每秒发送速率
+                    
+                    netusagestr_filepath = self.perflog + "net.log"
+                    fp=open(netusagestr_filepath,"a")
+                    for key in key_info:
+                        fp.write('%s\t\s\nInput:\t %-5sKB/s\nOutput:\t %-5sKB/s\n' % (current,key, net_in.get(key),\
+                        net_out.get(key)))
+                    fp.close()
         except Exception as e:
             print(e)
         finally:
             pass
 
 
+def get_key():
+ 
+    key_info = net_io_counters(pernic=True).keys()  # 获取网卡名称
+ 
+    recv = {}
+    sent = {}
+ 
+    for key in key_info:
+        recv.setdefault(key, net_io_counters(pernic=True).get(key).bytes_recv)  # 各网卡接收的字节数
+        sent.setdefault(key, net_io_counters(pernic=True).get(key).bytes_sent)  # 各网卡发送的字节数
+    return key_info, recv, sent
+
+
+           
 def monitorMain():
     # ******** 读取配置文件********
     config_list=readConfig()
