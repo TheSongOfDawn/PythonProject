@@ -130,7 +130,7 @@ def ResourceAnalysis():
         elif(item.split("-")[0] == "io"):
             stat_type = "io"
         else:
-            pass #暂时不处理net
+            continue #暂时不处理net
         # 获取所属
         if(os.path.isfile(file_dir+item)):
             analysis(stat_type,file_dir+item)
