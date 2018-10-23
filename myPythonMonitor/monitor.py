@@ -103,8 +103,18 @@ def monitorMain():
     # ******** 读取配置文件********
     config_list=readConfig()
     # ******** 获取要监视的文件的PID **********
-    pid_list = findPidsToMonitor(config_list[0])
-    print(pid_list)
+    flag=True
+    pid_list={}
+    watch_list=config_list[0]
+    print(watch_list)
+    while flag:
+        pid_list = findPidsToMonitor(watch_list)
+        if len(pid_list) == len(watch_list):
+            flag=False
+            print(pid_list)
+        else :
+            time.sleep(1)
+            print("pid's number is not equal processes's number!\n")
     #********** 监视时间************
     monitor_time =config_list[1]
     #********* 生成监视器 ************
@@ -146,8 +156,12 @@ def linuxTask(processes):
 
 def windowsTask(processes):
     pids_list=[]
+    used_process={}
+    for proc in process_iter():
+        used_process[proc]=1
+    
     for process in processes:
-        pid=get_proc_by_name(process)
+        pid=get_proc_by_name(process,used_process)
         if pid != None:
             pids_list.append(pid)
     return pids_list
@@ -155,13 +169,14 @@ def windowsTask(processes):
 '''
 windows 下方法
 '''
-def get_proc_by_name(pname):
-    """ get process by name
-    return the first process if there are more than one
+def get_proc_by_name(pname,used_process):
+    """ 
+    get process by name
     """
-    for proc in process_iter():
+    for proc in used_process:
         try:
-            if proc.name().lower() == pname.lower():
+            if used_process[proc] != 0 and proc.name().lower() == pname.lower():
+                used_process[proc]=0
                 return proc.pid  # return if found one
         except AccessDenied:
             pass
